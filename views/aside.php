@@ -22,7 +22,7 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="../assets/img/profiles/profile_glad.jpg" alt="Profile" class="rounded-circle " width="40">
+                    <img src="../assets/img/profiles/profile_glad.jpg" alt="Profile" class="rounded-circle " width="35">
                     <span class="d-none d-md-block dropdown-toggle ps-2">Lad_77</span>
                 </a><!-- End Profile Iamge Icon -->
 
@@ -69,19 +69,43 @@
             </a>
         </li><!-- End Dashboard Nav -->
         <li class="nav-item">
-            <a class="nav-link bg-transparent text-dark " href="chapelle.php">
+            <a class="nav-link bg-transparent text-dark " href="departement.php">
                 <i class="bi bi-house-fill text-dark"></i>
-                <span>Chapelle</span>
+                <span>Département</span>
             </a>
         </li><!-- End Dashboard Nav --> 
         <li class="nav-item">
-            <a class="nav-link bg-transparent text-dark " href="jeunes.php">
-                <i class="bi bi-person-walking text-dark"></i>
-                <span>Jeunes</span>
+            <a class="nav-link bg-transparent text-dark " href="partenaire.php">
+                <i class="bi bi-house-fill text-dark"></i>
+                <span>Partenaires</span>
             </a>
-        </li><!-- End Dashboard Nav -->     
+        </li><!-- End Dashboard Nav -->
         <li class="nav-item">
-            <a class="nav-link bg-transparent text-dark " href="utilisateur.php">
+            <a class="nav-link bg-transparent text-dark " href="agent.php">
+                <i class="bi bi-person-walking text-dark"></i>
+                <span>Agents</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+        <li class="nav-item">
+            <a class="nav-link bg-transparent text-dark " href="disk.php">
+                <i class="bi bi-person-walking text-dark"></i>
+                <span>Disk de stackages</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+        <li class="nav-item">
+            <a class="nav-link bg-transparent text-dark " href="terrain.php">
+                <i class="bi bi-person-walking text-dark"></i>
+                <span>Terrain</span>
+            </a>
+        </li><!-- End Dashboard Nav --> 
+        <li class="nav-item">
+            <a class="nav-link bg-transparent text-dark " href="post-Production.php">
+                <i class="bi bi-person-walking text-dark"></i>
+                <span>Post-Production</span>
+            </a>
+        </li><!-- End Dashboard Nav -->    
+        <li class="nav-item">
+            <a class="nav-link bg-transparent text-dark " href="user.php">
                 <i class="bi bi-people-fill text-dark"></i>
                 <span>Utilisateur</span>
             </a>
@@ -94,17 +118,22 @@
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="#">
-                        <i class="bi bi-circle"></i><span>Liste des Jeunes</span>
+                        <i class="bi bi-circle"></i><span>Liste des Agents</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="bi bi-circle"></i><span>Liste des Jeunes célibataire</span>
+                        <i class="bi bi-circle"></i><span>Liste des partenaires</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="bi bi-circle"></i><span>Liste des Mariés</span>
+                        <i class="bi bi-circle"></i><span>Liste des terrains</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bi bi-circle"></i><span>Liste des Productions</span>
                     </a>
                 </li>
 
