@@ -1,23 +1,8 @@
 <?php
 # Se connecter à la BD
-require_once('../connexion/connexion-Temp.php');
+require_once('../connexion/connexion.php');
 # Selection Querry
 require_once('../models/select/select-departement.php');
-
-if(isset($_GET["idModif"])){
-    $id=$_GET["idModif"];
-    $titre="Modifier departement";
-    $btn="Modifier";
-    $getdepart=$connexion->prepare("SELECT * FROM departement where iddepartement=?");
-    $getdepart->execute([$id]);
-    $Afficat=$getdepart-> fetch();
-    $action="../traitement/modifier_departement.php?idModif=$id";
-
-}else{
-    $titre="Ajouter_departement";
-    $btn="Enregistrer";
-    $action="../traitement/ajouter_departement.php";
-}
 ?>
 
 <!DOCTYPE html>
@@ -51,22 +36,22 @@ if(isset($_GET["idModif"])){
             <?php }
             #Cette ligne permet de vider la valeur qui se trouve dans la session message
             unset($_SESSION['msg']);
-            
+
             if (isset($_GET["NewDepartement"])) {
             ?>
                 <!-- Le form qui enregistre les données  -->
                 <div class="col-xl-12 ">
-                    <form action="<?=$action?>" method="POST" class="shadow p-3">
+                    <form action="<?= $action ?>" method="POST" class="shadow p-3">
                         <div class="row">
                             <h4 class="text-center"><?= $title ?></h4>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Description <span class="text-danger">*</span></label>
-                                <input required type="text" name="description" <?php if ( isset($_GET['idModif'])){?>value="<?=$Afficat['descriptions']?>"<?php } ?>class="form-control" placeholder="Entrez la description " >
+                                <input required type="text" name="description" <?php if (isset($_GET['idModif'])) { ?>value="<?= $Afficat['descriptions'] ?>" <?php } ?>class="form-control" placeholder="Entrez la description ">
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Dénomination <span class="text-danger">*</span></label>
-                                <input required type="text" name="pseudonyme"<?php if ( isset($_GET['idModif'])){?>value="<?=$Afficat['descriptions']?>"<?php } ?> class="form-control" placeholder="entrer le departement " >
-                            </div>                            
+                                <input required type="text" name="pseudonyme" <?php if (isset($_GET['idModif'])) { ?>value="<?= $Afficat['descriptions'] ?>" <?php } ?> class="form-control" placeholder="entrer le departement ">
+                            </div>
 
                             <?php if (isset($_GET['iddepartement'])) {
                             ?>
@@ -91,51 +76,50 @@ if(isset($_GET["idModif"])){
                 </div>
             <?php
             } else {
-                
+
             ?>
-                
+                <a href="departement.php?NewDepartement" class="btn btn-dark w-100">Nouveau Département</a>
             <?php
             }
             ?>
-                
+
 
             <!-- La table qui affiche les données  -->
             <div class="col-xl-12 table-responsive px-3 card mt-4 px-4 pt-3">
-                <h6 class="text-center">Listes des departements</h6><a href="departement.php?NewDepartement" class="btn btn-dark w-100">Nouveau Département</a>
+                <h6 class="text-center">Listes des departements</h6>
                 <table class="table table-borderless datatable ">
                     <thead>
                         <tr>
                             <th>N°</th>
-                            <th>Description</th> 
-                            <th>Pseudonyme</th>                           
+                            <th>Description</th>
+                            <th>Pseudonyme</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                              $req=$connexion->prepare("SELECT * FROM departement");
-                              $req->execute(); $num=0;
-                              while ($departement=$req->fetch()) {
-                                $num++; 
-                            ?>
-                        <tr>
-                            <!--<th scope="row">1</th> -->
-                            <td><?php echo $num?></td>    
-                            <td><?php echo $departement["descriptions"]?></td>
-                            <td><?php echo $departement["pseudonyme"]?></td>                          
-                            <td>
-                                <a href="departement.php?NewDepartement&idModif=<?php echo $departement[0]?>" class="btn btn-dark btn-sm">
-                                    <i class="bi bi-pencil-square">Modifier</i>
-                                </a>
-                                <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../traitement/supprimer_departement.php?idsuppr=<?php echo $departement[0]?>" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash3-fill">Supprimer</i>
-                                </a>
-                            </td>
-                            
-                        </tr>
+                        $num = 0;
+                        while ($departement = $getData->fetch()) {
+                            $num++;
+                        ?>
+                            <tr>
+                                <!--<th scope="row">1</th> -->
+                                <td><?php echo $num ?></td>
+                                <td><?php echo $departement["nom_Departement"] ?></td>
+                                <td><?php echo $departement["denomination"] ?></td>
+                                <td>
+                                    <a href="departement.php?NewDepartement&idModif=<?php echo $departement[0] ?>" class="btn btn-dark btn-sm">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../traitement/supprimer_departement.php?idsuppr=<?php echo $departement[0] ?>" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </a>
+                                </td>
+
+                            </tr>
                         <?php
-                     }
-                    ?>
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
