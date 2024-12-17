@@ -40,29 +40,29 @@ require_once('../models/select/select-Agent.php');
             ?>
                 <!-- Le form qui enregistrer les données  -->
                 <div class="col-xl-12 ">
-                    <form action="<?= $action ?>" method="POST" class="shadow p-3">
+                    <form action="<?= $action ?>" method="POST" class="shadow p-3" enctype="multipart/form-data">
                         <div class="row">
                             <h4 class="text-center"><?= $title ?></h4>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Nom <span class="text-danger">*</span></label>
-                                <input required autocomplete="off" type="text" name="nom" class="form-control" placeholder="Entrez le nom" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['nom'] ?>" <?php } ?>>
+                                <input required autocomplete="off" type="text" name="nom" class="form-control" placeholder="Entrez le nom" <?php if (isset($_GET['idAgent'])) { ?>value="<?= $tab['nom'] ?>" <?php } ?>>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Postnom <span class="text-danger">*</span></label>
-                                <input required autocomplete="off" type="text" name="postnom" class="form-control" placeholder="Entrez le postnom" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['postnom'] ?>" <?php } ?>>
+                                <input required autocomplete="off" type="text" name="postnom" class="form-control" placeholder="Entrez le postnom" <?php if (isset($_GET['idAgent'])) { ?>value="<?= $tab['postnom'] ?>" <?php } ?>>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Prenom <span class="text-danger">*</span></label>
-                                <input required autocomplete="off" type="text" name="prenom" class="form-control" placeholder="Entrez le prenom" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['prenom'] ?>" <?php } ?>>
+                                <input required autocomplete="off" type="text" name="prenom" class="form-control" placeholder="Entrez le prenom" <?php if (isset($_GET['idAgent'])) { ?>value="<?= $tab['prenom'] ?>" <?php } ?>>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Genre <span class="text-danger">*</span></label>
                                 <select required id="" name="genre" class="form-control select2">
                                     <?php
-                                    if (isset($_GET['Idmodif'])) {
+                                    if (isset($_GET['idAgent'])) {
                                     ?>
 
-                                        <?php if ($select['genre'] == 'Masculin') { ?>
+                                        <?php if ($tab['genre'] == 'Masculin') { ?>
                                             <option value="Masculin" Selected>Masculin</option>
                                             <option value="Feminin">Feminin</option>
 
@@ -84,40 +84,54 @@ require_once('../models/select/select-Agent.php');
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Adresse <span class="text-danger">*</span></label>
-                                <input required autocomplete="off" type="text" name="adress" class="form-control" placeholder="Entrez l'adresse" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['adresse'] ?>" <?php } ?>>
+                                <input required autocomplete="off" type="text" name="adresse" class="form-control" placeholder="Entrez l'adresse" <?php if (isset($_GET['idAgent'])) { ?>value="<?= $tab['adresse'] ?>" <?php } ?>>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Telephone <span class="text-danger">*</span></label>
-                                <input required autocomplete="off" type="text" name="telephone" class="form-control" placeholder="Entrez le N° Tel" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['telephone'] ?>" <?php } ?>>
+                                <input required autocomplete="off" type="text" name="telephone" class="form-control" placeholder="Entrez le N° Tel" <?php if (isset($_GET['idAgent'])) { ?>value="<?= $tab['telephone'] ?>" <?php } ?>>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Telephone parents ou Referant <span class="text-danger">*</span></label>
-                                <input required autocomplete="off" type="text" name="telephoneParent" class="form-control" placeholder="Entrez le N° Tel" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['telephone'] ?>" <?php } ?>>
+                                <input required autocomplete="off" type="text" name="telephoneParent" class="form-control" placeholder="Entrez le N° Tel" <?php if (isset($_GET['idAgent'])) { ?>value="<?= $tab['telephoneReferant'] ?>" <?php } ?>>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Département <span class="text-danger">*</span></label>
                                 <select required id="" name="fonction" class="form-control select2">
-                                    <option value="" desabled>Choisir un département</option>
-                                    <option value="">Exemple</option>
-                                    <option value="">Exemple</option>
+                                    <?php
+                                    while ($departement = $getDepartement->fetch()) {
+                                        if (isset($_GET['idAgent'])) {
+                                            ?>
+                                                <option <?php if ($departementModif==$departement['id']) { ?>Selected <?php } ?> value="<?= $departement['id'] ?>" ><?= $departement['nom_Departement'] ?></option>
+                                            <?php
+                                        } else {
+                                            ?>
+                                                <option value="<?= $departement['id'] ?>"><?= $departement['nom_Departement'] ?></option>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
                                 </select>
                             </div>
-                            <div class="col-xl-4 col-lg-4 col-md-4  col-sm-6 p-3">
-                                <label for="">Photo <span class="text-danger">*</span></label>
-                                <input autocomplete="off" value="" name="photo" class="img-fluid" type="file" class="form-control" placeholder="Aucun fichier">
-                            </div>
-
-                            <?php if (isset($_GET['idclient'])) {
+                            
+                            <?php if (isset($_GET['idAgent'])) {
                             ?>
                                 <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
                                     <input type="submit" name="valider" class="btn btn-dark w-100" value="Modifier">
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
-                                    <a href="client.php" class="btn btn-danger w-100">Annuler</a>
+                                    <a href="agent.php" class="btn btn-danger w-100">Annuler</a>
                                 </div>
                             <?php
                             } else {
                             ?>
+                                <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
+                                    <label for="">Mot de passe <span class="text-danger">*</span></label>
+                                    <input required autocomplete="off" type="text" name="pwd" class="form-control" placeholder="Entrez le N° Tel" <?php if (isset($_GET['idAgent'])) { ?>value="<?= $element['telephone'] ?>" <?php } ?>>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4  col-sm-6 p-3">
+                                    <label for="">Photo de profil<span class="text-danger">*</span></label>
+                                    <input autocomplete="off" value="" name="picture" class="img-fluid" type="file" class="form-control" placeholder="Aucun fichier">
+                                </div>
                                 <div class="col-xl-12 col-lg-12 col-md-12 mt-10 col-sm-12 p-3 aling-center">
                                     <input type="submit" name="valider" class="btn btn-dark w-100" value="<?= $btn ?>">
                                 </div>
@@ -144,30 +158,40 @@ require_once('../models/select/select-Agent.php');
                         <tr>
                             <th>N°</th>
                             <th>Noms</th>
-                            <th>Genre</th>
                             <th>Adresse</th>
+                            <th>Fonction</th>
                             <th>Telephone</th>
-                            <th>Telephone Referant</th>                            
+                            <th>Telephone Referant</th>
+                            <th>Profil</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
-                            <td>Ex: +243 ...</td>
-                            <td>Ex: +243 ...</td>
-                            <td>
-                                <a href="client.php?idclient=" class="btn btn-dark btn-sm">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                                <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/deleteClient.php?idclient=" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash3-fill"></i>
-                                </a>
-                            </td>
-                        </tr>
+                        <?php
+                        $n = 0;
+                        while ($Agent = $getData->fetch()) {
+                            $n++;
+                        ?>
+                            <tr>
+                                <th scope="row"><?= $n ?></th>
+                                <td><?= $Agent["nom"] . " " . $Agent["postnom"] . " " . $Agent["prenom"] ?></td>
+                                <td><?= $Agent["adresse"] ?></td>
+                                <td><?= $Agent["denomination"] ?></td>
+                                <td><?= $Agent["telephone"] ?></td>
+                                <td><?= $Agent["telephoneReferant"] ?></td>
+                                <td><img src="../assets/img/profiles/<?= $Agent["profil"] ?>" alt="" class="rounded-circle mt-2" width="65px" height="60px"></td>
+                                <td>
+                                    <a href="agent.php?NewAgent&idAgent=<?= $Agent["id"] ?>" class="btn btn-dark btn-sm mb-2">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/delete-Agent.php?idAgent=<?= $Agent["id"] ?>" class="btn btn-danger btn-sm mb-2">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
