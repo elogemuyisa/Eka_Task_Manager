@@ -41,7 +41,7 @@ require_once('../models/select/select-Production.php');
                 <!-- Le form qui enregistrer les données  -->
                 <div class="col-xl-12 ">
                     <form action="<?= $action ?>" method="POST" class="shadow p-3">
-                        <div class="row">                            
+                        <div class="row">
                             <h4 class="text-center"><?= $title ?></h4>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Type de Production<span class="text-danger">*</span></label>
@@ -49,17 +49,17 @@ require_once('../models/select/select-Production.php');
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Agent <span class="text-danger">*</span></label>
-                                <select required id="" name="fonction" class="form-control select2">
+                                <select required id="" name="agent" class="form-control select2">
                                     <?php
                                     while ($Agent = $getAgent->fetch()) {
                                         if (isset($_GET['idProd'])) {
-                                            ?>
-                                                <option <?php if ($AgentModif==$Agent['id']) { ?>Selected <?php } ?> value="<?= $Agent['id'] ?>" ><?= $Agent['nom']." ".$Agent['postnom']." ".$Agent['prenom']." ".$Agent['denomination'] ?></option>
-                                            <?php
+                                    ?>
+                                            <option <?php if ($AgentModif == $Agent['id']) { ?>Selected <?php } ?> value="<?= $Agent['id'] ?>"><?= $Agent['nom'] . " " . $Agent['postnom'] . " " . $Agent['prenom'] . " " . $Agent['denomination'] ?></option>
+                                        <?php
                                         } else {
-                                            ?>
-                                                <option value="<?= $Agent['id'] ?>"><?= $Agent['nom']." ".$Agent['postnom']." ".$Agent['prenom']." ".$Agent['denomination'] ?></option>
-                                            <?php
+                                        ?>
+                                            <option value="<?= $Agent['id'] ?>"><?= $Agent['nom'] . " " . $Agent['postnom'] . " " . $Agent['prenom'] . " " . $Agent['denomination'] ?></option>
+                                    <?php
                                         }
                                     }
                                     ?>
@@ -71,13 +71,13 @@ require_once('../models/select/select-Production.php');
                                     <?php
                                     while ($disk = $getDisk->fetch()) {
                                         if (isset($_GET['idProd'])) {
-                                            ?>
-                                                <option <?php if ($diskModif==$disk['id']) { ?>Selected <?php } ?> value="<?= $disk['id'] ?>" ><?= $disk['matricule']?></option>
-                                            <?php
+                                    ?>
+                                            <option <?php if ($diskModif == $disk['id']) { ?>Selected <?php } ?> value="<?= $disk['id'] ?>"><?= $disk['matricule'] ?></option>
+                                        <?php
                                         } else {
-                                            ?>
-                                                <option value="<?= $disk['id'] ?>"><?= $disk['matricule']?></option>
-                                            <?php
+                                        ?>
+                                            <option value="<?= $disk['id'] ?>"><?= $disk['matricule'] ?></option>
+                                    <?php
                                         }
                                     }
                                     ?>
@@ -121,49 +121,52 @@ require_once('../models/select/select-Production.php');
                                 <th>Type de production</th>
                                 <th>Disk</th>
                                 <th>Emplacement</th>
-                                <th>Etat</th>
+                                <th>Livraison</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Exemple</td>
-                                <td>Exemple</td>
-                                <td>Exemple</td>
-                                <td>Exemple</td>
-                                <td>Exemple</td>
-                                <td>
-                                    <a href="client.php?idclient=" class="btn btn-dark btn-sm">Livée</a>
-                                </td>
-                                <td>
-                                    <a href="client.php?idclient=" class="btn btn-dark btn-sm">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/deleteClient.php?idclient=" class="btn btn-danger btn-sm">
-                                        <i class="bi bi-trash3-fill"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Exemple</td>
-                                <td>Exemple</td>
-                                <td>Exemple</td>
-                                <td>Exemple</td>
-                                <td>Exemple</td>
-                                <td>
-                                    Deja livrée
-                                </td>
-                                <td>
-                                    <a href="client.php?idclient=" class="btn btn-dark btn-sm">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/deleteClient.php?idclient=" class="btn btn-danger btn-sm">
-                                        <i class="bi bi-trash3-fill"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                            <?php
+                            $n = 0;
+                            while ($prod = $getPost_Prod->fetch()) {
+                                $n++;
+                                $Livraison = $prod["livraison"];
+                            ?>
+                                <tr>
+                                    <th scope="row"><?= $n ?></th>
+                                    <td><?= $prod["Denomination"] ?></td>
+                                    <td><?= $prod["nom"] . " " . $prod["prenom"] ?></td>
+                                    <td><?= $prod["Typeproduction"] ?></td>
+                                    <td><?= $prod["matricule"] ?></td>
+                                    <td><?= $prod["emplacement"] ?></td>
+                                    <?php
+                                    if ($Livraison == 0) {
+                                    ?>
+                                        <td>
+                                            <a href="client.php?idclient=" class="btn btn-dark btn-sm">Livée</a>
+                                        </td>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <td>
+                                            Deja livrée
+                                        </td>
+                                    <?php
+                                    }
+                                    ?>
+
+                                    <td>
+                                        <a href="client.php?idProd=<?= $prod["id"] ?>" class="btn btn-dark btn-sm mb-2">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/deleteClient.php?idSupPro=<?= $prod["id"] ?>" class="btn btn-danger btn-sm mb-2">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -171,33 +174,41 @@ require_once('../models/select/select-Production.php');
             } else {
             ?>
                 <!-- La table qui affiche les données  -->
-            <div class="col-xl-12 table-responsive px-3 card mt-4 px-4 pt-3">
-                <h6 class="text-center">Listes des terrains</h6>
-                <table class="table table-borderless datatable ">
-                    <thead>
-                        <tr>
-                            <th>N°</th>
-                            <th>Date</th>
-                            <th>Description</th>
-                            <th>lieu</th>
-                            <th>Partenaire</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
-                            <td>
-                                <a href="post-Production.php?idTerrain=1" class="btn btn-dark btn-sm bi bi-plus">Production</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <div class="col-xl-12 table-responsive px-3 card mt-4 px-4 pt-3">
+                    <h6 class="text-center">Listes des terrains</h6>
+                    <table class="table table-borderless datatable ">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Lieu</th>
+                                <th>Partenaire</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $n = 0;
+                            while ($terrain = $getTerrain->fetch()) {
+                                $n++;
+                            ?>
+                                <tr>
+                                    <th scope="row"><?= $n ?></th>
+                                    <td><?= $terrain["date"] ?></td>
+                                    <td><?= $terrain["description"] ?></td>
+                                    <td><?= $terrain["lieu"] ?></td>
+                                    <td><?= $terrain["Denomination"] ?></td>
+                                    <td>
+                                        <a href="post-Production.php?idTerrain=<?= $terrain["id"] ?>" class="btn btn-dark btn-sm bi bi-plus">Production</a>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             <?php
             }
             ?>
