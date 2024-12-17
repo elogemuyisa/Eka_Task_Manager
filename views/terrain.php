@@ -1,8 +1,11 @@
 <?php
 # Se connecter à la BD
-require_once('../connexion/connexion.php');
+require_once('../connexion/connexion-Temp.php');
 # Selection Querry
-require_once('../models/select/select-Terrain.php');
+require_once("../models/select/select-Terrain.php");
+$action="../models/add/add-Terrain-post.php";
+$req = $connexion->prepare("SELECT terrain.*, partenaire.Denomination FROM terrain, partenaire WHERE partenaire.id=terrain.partenaire ");
+$req->execute();
 ?>
 
 <!DOCTYPE html>
@@ -46,18 +49,25 @@ require_once('../models/select/select-Terrain.php');
                             <h4 class="text-center"><?= $title ?></h4>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Description <span class="text-danger">*</span></label>
-                                <input required type="text" name="" class="form-control" placeholder="Entrez la description " >
+                                <input required type="text" name="description" class="form-control" placeholder="Entrez la description " >
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Lieu <span class="text-danger">*</span></label>
-                                <input required type="text" name="" class="form-control" placeholder="EX: Beni " >
+                                <input required type="text" name="lieu" class="form-control" placeholder="EX: Beni " >
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Partennaire <span class="text-danger">*</span></label>
-                                <select required id="" name="genre" class="form-control select2">
-                                    <option value="" desabled>Choisir un partenaire</option>
-                                    <option value="">Exemple</option>
-                                    <option value="">Exemple</option>
+                                <select required id="" name="partenaire" class="form-control select2">
+                                <option value="" desabled>Choisir un partenaire</option> 
+                                <?php 
+                                                    $compte=0;
+                                                    // $clientt= $_SESSION['idclients'];
+                                                    $roq = $connexion->prepare("SELECT * FROM `partenaire` ");
+                                                    $roq->execute();
+                                                    while($res = $roq->fetch()) {
+                                                        $compte=$compte+1; ?>
+                                                        <option value="<?= $res["id"] ?>"><?= $compte?>: <?= $res["Denomination"] ?></option>
+                                                        <?php }?>       
                                 </select>
                             </div>
 
@@ -105,12 +115,14 @@ require_once('../models/select/select-Terrain.php');
                         </tr>
                     </thead>
                     <tbody>
+                    <?php $num=0;
+                        while($ress = $req->fetch()){ $num=$num+1 ?>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
+                            <th scope="row"><?= $num?></th>
+                            <td><?= $ress["date"] ?></td>
+                            <td><?= $ress["description"] ?></td>
+                            <td><?= $ress["lieu"] ?></td>
+                            <td><?= $ress["Denomination"] ?></td>
                             <td>
                                 <a href="client.php?idclient=" class="btn btn-dark btn-sm">
                                     <i class="bi bi-pencil-square"></i>
@@ -121,6 +133,9 @@ require_once('../models/select/select-Terrain.php');
                             </td>
                         </tr>
                     </tbody>
+                    <?php
+                    }
+                    ?>
                 </table>
             </div>
         </div>

@@ -1,6 +1,6 @@
 <?php
 # Se connecter à la BD
-require_once('../connexion/connexion.php');
+require_once('../connexion/connexion-Temp.php');
 # Selection Querry
 require_once('../models/select/select-departement.php');
 ?>

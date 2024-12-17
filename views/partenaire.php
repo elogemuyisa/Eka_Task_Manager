@@ -1,7 +1,12 @@
 <?php
 # Se connecter à la BD
-require_once('../connexion/connexion.php');
+require_once('../connexion/connexion-Temp.php');
 require_once('../models/select/select-Partenaire.php');
+$action="../models/add/add-Partenaire-post.php";
+
+$req = $connexion->prepare("SELECT * FROM `partenaire`");
+$req->execute();
+
 ?>
 
 <!DOCTYPE html>
@@ -45,15 +50,15 @@ require_once('../models/select/select-Partenaire.php');
                             <h4 class="text-center"><?= $title ?></h4>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Denomination <span class="text-danger">*</span></label>
-                                <input required type="text" name="nom" class="form-control" placeholder="Entrez le nom" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['nom'] ?>" <?php } ?>>
+                                <input required type="text" name="nom" class="form-control" placeholder="Entrez le nom" <?php if (isset($_GET['idclient'])) { ?> value="<?= $element['nom'] ?>" <?php } ?>>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Adresse <span class="text-danger">*</span></label>
-                                <input required type="text" name="postnom" class="form-control" placeholder="Entrez le postnom" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['postnom'] ?>" <?php } ?>>
+                                <input required type="text" name="adresse" class="form-control" placeholder="Entrez l'adresse" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['postnom'] ?>" <?php } ?>>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Telephone <span class="text-danger">*</span></label>
-                                <input required type="text" name="prenom" class="form-control" placeholder="Entrez le prenom" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['prenom'] ?>" <?php } ?>>
+                                <input required type="text" name="telephone" class="form-control" placeholder="Entrez le numero de téléphone" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['prenom'] ?>" <?php } ?>>
                             </div>
 
                             <?php if (isset($_GET['idclient'])) {
@@ -100,12 +105,14 @@ require_once('../models/select/select-Partenaire.php');
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $num=0;
+                        while($res = $req->fetch()){ $num=$num+1 ?>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
+                            <th scope="row"><?= $num?></th>
+                            <td><?= $res['dateSignature']?></td>
+                            <td><?= $res['Denomination']?></td>
+                            <td><?= $res['adresse']?></td>
+                            <td><?= $res['telephone']?></td>
                             <td>
                                 <a href="client.php?idclient=" class="btn btn-dark btn-sm">
                                     <i class="bi bi-pencil-square"></i>
@@ -116,6 +123,7 @@ require_once('../models/select/select-Partenaire.php');
                             </td>
                         </tr>
                     </tbody>
+                    <?php } ?>
                 </table>
             </div>
         </div>

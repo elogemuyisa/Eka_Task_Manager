@@ -1,10 +1,7 @@
 <?php
-$DB_Name = "";
-$Host = "";
-$userName = "";
-$Pass_Word = "";
 try {
-    $connexion = new PDO('mysql:dbname= $DB_Name; host=$Host', '$userName', '$Pass_Word');
+    session_start();
+    $connexion = new PDO('mysql:dbname=eka_manager;host=localhost', 'root', '');
 } catch (Exception $e) {
     echo $e;
 }
