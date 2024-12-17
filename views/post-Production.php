@@ -45,30 +45,50 @@ require_once('../models/select/select-Production.php');
                             <h4 class="text-center"><?= $title ?></h4>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Type de Production<span class="text-danger">*</span></label>
-                                <input required autocomplete="off" type="text" name="adress" class="form-control" placeholder="Entrez l'adresse" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['adresse'] ?>" <?php } ?>>
+                                <input required autocomplete="off" type="text" name="type" class="form-control" placeholder="Entrez l'adresse" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['adresse'] ?>" <?php } ?>>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Agent <span class="text-danger">*</span></label>
                                 <select required id="" name="fonction" class="form-control select2">
-                                    <option value="" desabled>Choisir un agent</option>
-                                    <option value="">Exemple</option>
-                                    <option value="">Exemple</option>
+                                    <?php
+                                    while ($Agent = $getAgent->fetch()) {
+                                        if (isset($_GET['idProd'])) {
+                                            ?>
+                                                <option <?php if ($AgentModif==$Agent['id']) { ?>Selected <?php } ?> value="<?= $Agent['id'] ?>" ><?= $Agent['nom']." ".$Agent['postnom']." ".$Agent['prenom']." ".$Agent['denomination'] ?></option>
+                                            <?php
+                                        } else {
+                                            ?>
+                                                <option value="<?= $Agent['id'] ?>"><?= $Agent['nom']." ".$Agent['postnom']." ".$Agent['prenom']." ".$Agent['denomination'] ?></option>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
-                                <label for="">Disk de stockage <span class="text-danger">*</span></label>
-                                <select required id="" name="fonction" class="form-control select2">
-                                    <option value="" desabled>Choisir un disk</option>
-                                    <option value="">Exemple</option>
-                                    <option value="">Exemple</option>
+                                <label for="">Choisir Un disque de stockage <span class="text-danger">*</span></label>
+                                <select required id="" name="disk" class="form-control select2">
+                                    <?php
+                                    while ($disk = $getDisk->fetch()) {
+                                        if (isset($_GET['idProd'])) {
+                                            ?>
+                                                <option <?php if ($diskModif==$disk['id']) { ?>Selected <?php } ?> value="<?= $disk['id'] ?>" ><?= $disk['matricule']?></option>
+                                            <?php
+                                        } else {
+                                            ?>
+                                                <option value="<?= $disk['id'] ?>"><?= $disk['matricule']?></option>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Emplacement/nom du dossier <span class="text-danger">*</span></label>
-                                <input required autocomplete="off" type="text" name="adress" class="form-control" placeholder="Entrez l'adresse" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['adresse'] ?>" <?php } ?>>
+                                <input required autocomplete="off" type="text" name="emplacement" class="form-control" placeholder="Entrez l'adresse" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['adresse'] ?>" <?php } ?>>
                             </div>
 
-                            <?php if (isset($_GET['idclient'])) {
+                            <?php if (isset($_GET['idProd'])) {
                             ?>
                                 <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
                                     <input type="submit" name="valider" class="btn btn-dark w-100" value="Modifier">
