@@ -1,11 +1,9 @@
 <?php
 # Se connecter à la BD
 require_once('../connexion/connexion-Temp.php');
-# Selection Querry
+# Selection Querries
 require_once("../models/select/select-Terrain.php");
-$action="../models/add/add-Terrain-post.php";
-$req = $connexion->prepare("SELECT terrain.*, partenaire.Denomination FROM terrain, partenaire WHERE partenaire.id=terrain.partenaire ");
-$req->execute();
+
 ?>
 
 <!DOCTYPE html>
@@ -46,32 +44,46 @@ $req->execute();
                 <div class="col-xl-12 ">
                     <form action="<?= $action ?>" method="POST" class="shadow p-3">
                         <div class="row">
-                            <h4 class="text-center"><?= $title ?></h4>
+                            <?php
+                            if (isset($_GET['idTerrain'])) {
+                            ?>
+                                <h4 class="text-center"><?= $title . " " . $partenaire  ?></h4>
+                            <?php
+                            } else {
+                            ?>
+                                 <h4 class="text-center"><?= $title?></h4>
+                            <?php
+                            }
+                            ?>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Description <span class="text-danger">*</span></label>
-                                <input required type="text" name="description" class="form-control" placeholder="Entrez la description " >
+                                <input required autocomplete="off" type="text" name="description" class="form-control" placeholder="Entrez la description" <?php if (isset($_GET['idTerrain'])) { ?>value="<?= $terMod['description'] ?>" <?php } ?>>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Lieu <span class="text-danger">*</span></label>
-                                <input required type="text" name="lieu" class="form-control" placeholder="EX: Beni " >
+                                <input required autocomplete="off" type="text" name="lieu" class="form-control" placeholder="EX: Beni" <?php if (isset($_GET['idTerrain'])) { ?>value="<?= $terMod['lieu'] ?>" <?php } ?>>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Partennaire <span class="text-danger">*</span></label>
                                 <select required id="" name="partenaire" class="form-control select2">
-                                <option value="" desabled>Choisir un partenaire</option> 
-                                <?php 
-                                                    $compte=0;
-                                                    // $clientt= $_SESSION['idclients'];
-                                                    $roq = $connexion->prepare("SELECT * FROM `partenaire` ");
-                                                    $roq->execute();
-                                                    while($res = $roq->fetch()) {
-                                                        $compte=$compte+1; ?>
-                                                        <option value="<?= $res["id"] ?>"><?= $compte?>: <?= $res["Denomination"] ?></option>
-                                                        <?php }?>       
+                                    <?php
+                                    while ($parte = $getPartenaire->fetch()) {
+                                        if (isset($_GET['idTerrain'])) {
+                                    ?>
+                                            <option <?php if ($idPart == $parte['id']) { ?>Selected <?php } ?> value="<?= $parte['id'] ?>"><?= $parte['Denomination'] ?></option>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <option value="<?= $parte['id'] ?>"><?= $parte['Denomination'] ?></option>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
                                 </select>
                             </div>
 
-                            <?php if (isset($_GET['idclient'])) {
+
+                            <?php if (isset($_GET['idTerrain'])) {
                             ?>
                                 <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
                                     <input type="submit" name="valider" class="btn btn-dark w-100" value="Modifier">
@@ -115,27 +127,31 @@ $req->execute();
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $num=0;
-                        while($ress = $req->fetch()){ $num=$num+1 ?>
-                        <tr>
-                            <th scope="row"><?= $num?></th>
-                            <td><?= $ress["date"] ?></td>
-                            <td><?= $ress["description"] ?></td>
-                            <td><?= $ress["lieu"] ?></td>
-                            <td><?= $ress["Denomination"] ?></td>
-                            <td>
-                                <a href="client.php?idclient=" class="btn btn-dark btn-sm">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                                <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/deleteClient.php?idclient=" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash3-fill"></i>
-                                </a>
-                            </td>
-                        </tr>
+                        <?php $num = 0;
+                        while ($ress = $req->fetch()) {
+                            $num = $num + 1 ?>
+                            <tr>
+                                <th scope="row"><?= $num ?></th>
+                                <td><?= $ress["date"] ?></td>
+                                <td><?= $ress["description"] ?></td>
+                                <td><?= $ress["lieu"] ?></td>
+                                <td><?= $ress["Denomination"] ?></td>
+                                <td>
+                                    <a href="participation.php?idTerr=<?= $ress["id"] ?>" class="btn btn-dark btn-sm">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="terrain.php?NewTerrain&idTerrain=<?= $ress["id"] ?>" class="btn btn-dark btn-sm">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/deleteClient.php?idclient=" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </a>
+                                </td>
+                            </tr>
                     </tbody>
-                    <?php
-                    }
-                    ?>
+                <?php
+                        }
+                ?>
                 </table>
             </div>
         </div>

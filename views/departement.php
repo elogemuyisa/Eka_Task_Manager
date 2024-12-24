@@ -46,14 +46,14 @@ require_once('../models/select/select-departement.php');
                             <h4 class="text-center"><?= $title ?></h4>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Description <span class="text-danger">*</span></label>
-                                <input required type="text" name="description" <?php if (isset($_GET['idModif'])) { ?>value="<?= $Afficat['descriptions'] ?>" <?php } ?>class="form-control" placeholder="Entrez la description ">
+                                <input required type="text" name="nom_departement" <?php if (isset($_GET['idModif'])) { ?>value="<?= $AfichDepartement['nom_Departement'] ?>" <?php } ?>class="form-control" placeholder="Entrez le nom du departement ">
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Dénomination <span class="text-danger">*</span></label>
-                                <input required type="text" name="pseudonyme" <?php if (isset($_GET['idModif'])) { ?>value="<?= $Afficat['descriptions'] ?>" <?php } ?> class="form-control" placeholder="entrer le departement ">
+                                <input required type="text" name="denomination" <?php if (isset($_GET['idModif'])) { ?>value="<?= $AfichDepartement['denomination'] ?>" <?php } ?> class="form-control" placeholder="Entrer le une denomination ">
                             </div>
 
-                            <?php if (isset($_GET['iddepartement'])) {
+                            <?php if (isset($_GET['idModif'])) {
                             ?>
                                 <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
                                     <input type="submit" name="valider" class="btn btn-dark w-100" value="Modifier">
@@ -111,7 +111,7 @@ require_once('../models/select/select-departement.php');
                                     <a href="departement.php?NewDepartement&idModif=<?php echo $departement[0] ?>" class="btn btn-dark btn-sm">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
-                                    <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../traitement/supprimer_departement.php?idsuppr=<?php echo $departement[0] ?>" class="btn btn-danger btn-sm">
+                                    <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/delete-Departement.php?idSupDepar=<?php echo $departement[0] ?>" class="btn btn-danger btn-sm">
                                         <i class="bi bi-trash3-fill"></i>
                                     </a>
                                 </td>

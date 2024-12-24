@@ -43,8 +43,8 @@ if (isset($_POST['valider'])) {
       # verify pwd vadity
       if ($pwd != "") {
         # Insertion data from database
-        $req = $connexion->prepare("INSERT INTO `agents`(`nom`, `postnom`, `prenom`, `genre`, `telephone`, `adresse`, `telephoneReferant`, `pwd`, `profil`, `statut`) VALUES (?,?,?,?,?,?,?,?,?,?)");
-        $resultat = $req->execute([$nom, $postnom, $prenom, $genre, $telephone, $adresse, $telephoneParent, $pwd, $newimage, $statut]);
+        $req = $connexion->prepare("INSERT INTO `agents`(`nom`, `postnom`, `prenom`, `genre`, `telephone`, `adresse`, `fonction`, `telephoneReferant`, `pwd`, `profil`, `statut`) VALUES  (?,?,?,?,?,?,?,?,?,?,?)");
+        $resultat = $req->execute([$nom, $postnom, $prenom, $genre, $telephone, $adresse, $Fonction, $telephoneParent,  $pwd, $newimage, $statut]);
         if ($resultat == true) {
           $_SESSION['msg'] = "Enregistrement reussi !";
           header("location:../../views/agent.php");
