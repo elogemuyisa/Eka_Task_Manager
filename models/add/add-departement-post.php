@@ -14,6 +14,6 @@ if (isset($_POST["valider"])) {
             header("location:../../views/departement.php");
         }
     }
-}else {   
+} else {
     header("location:../../views/departement.php");
 }

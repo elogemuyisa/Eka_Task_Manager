@@ -45,7 +45,7 @@ require_once('../models/select/select-Production.php');
                             <h4 class="text-center"><?= $title ?></h4>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Type de Production<span class="text-danger">*</span></label>
-                                <input required autocomplete="off" type="text" name="type" class="form-control" placeholder="Entrez l'adresse" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['adresse'] ?>" <?php } ?>>
+                                <input required autocomplete="off" type="text" name="type" class="form-control" placeholder="EX: Vidéo ou Photo" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['adresse'] ?>" <?php } ?>>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Agent <span class="text-danger">*</span></label>
@@ -171,6 +171,70 @@ require_once('../models/select/select-Production.php');
                     </table>
                 </div>
             <?php
+            } elseif (isset($_GET["VoirProd"])) {
+                $idTer=$_GET["VoirProd"];
+            ?>
+                <div class="col-xl-12 table-responsive px-3 card mt-4 px-4 pt-3">
+                    <h6 class="text-center">Listes des Productions</h6>
+                    <table class="table table-borderless datatable ">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Terrain</th>
+                                <th>Agent</th>
+                                <th>Type de production</th>
+                                <th>Disk</th>
+                                <th>Emplacement</th>
+                                <th>Livraison</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $n = 0;
+                            while ($prod = $getPost_Prod->fetch()) {
+                                $n++;
+                                $Livraison = $prod["livraison"];
+                            ?>
+                                <tr>
+                                    <th scope="row"><?= $n ?></th>
+                                    <td><?= $prod["Denomination"] ?></td>
+                                    <td><?= $prod["nom"] . " " . $prod["prenom"] ?></td>
+                                    <td><?= $prod["Typeproduction"] ?></td>
+                                    <td><?= $prod["matricule"] ?></td>
+                                    <td><?= $prod["emplacement"] ?></td>
+                                    <?php
+                                    if ($Livraison == 0) {
+                                    ?>
+                                        <td>
+                                            <a href="../models/updat/livre.php?VoirProd=<?=$idTer?>&idPro=<?= $prod["id"] ?>" class="btn btn-dark btn-sm">Livée</a>
+                                        </td>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <td>
+                                            Deja livrée
+                                        </td>
+                                    <?php
+                                    }
+                                    ?>
+
+                                    <td>
+                                        <a href="client.php?idProd=<?= $prod["id"] ?>" class="btn btn-dark btn-sm mb-2">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/deleteClient.php?idSupPro=<?= $prod["id"] ?>" class="btn btn-danger btn-sm mb-2">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php
             } else {
             ?>
                 <!-- La table qui affiche les données  -->
@@ -200,7 +264,8 @@ require_once('../models/select/select-Production.php');
                                     <td><?= $terrain["lieu"] ?></td>
                                     <td><?= $terrain["Denomination"] ?></td>
                                     <td>
-                                        <a href="post-Production.php?idTerrain=<?= $terrain["id"] ?>" class="btn btn-dark btn-sm bi bi-plus">Production</a>
+                                        <a href="post-Production.php?VoirProd=<?= $terrain["id"] ?>" class="btn btn-dark btn-sm bi bi-eye"> Voir</a>
+                                        <a href="post-Production.php?idTerrain=<?= $terrain["id"] ?>" class="btn btn-dark btn-sm bi bi-plus"> Productions</a>
                                     </td>
                                 </tr>
                             <?php

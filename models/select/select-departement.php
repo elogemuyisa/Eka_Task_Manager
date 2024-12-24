@@ -1,16 +1,17 @@
 <?php
 if (isset($_GET["idModif"])) {
     $id = $_GET["idModif"];
-    $titre = "Modifier departement";
-    $btn = "Modifier";
-    $getdepart = $connexion->prepare("SELECT * FROM departement where iddepartement=?");
+    $getdepart = $connexion->prepare("SELECT * FROM departement where id=?");
     $getdepart->execute([$id]);
-    $Afficat = $getdepart->fetch();
-    $action = "../traitement/modifier_departement.php?idModif=$id";
+    $AfichDepartement = $getdepart->fetch();
+    $title = "Modifier departement " . $AfichDepartement['nom_Departement'];
+    $btn = "Modifier";
+    $action = "../models/updat/update-Departement-post.php?idModif=" . $id;
 } else {
-    $titre = "AAjouter un nouveau département";
+    $title = "Ajouter un nouveau département";
     $btn = "Enregistrer";
     $action = "../models/add/add-departement-post.php";
 }
-$getData = $connexion->prepare("SELECT * FROM departement");
-$getData->execute();
+$statut=0;
+$getData = $connexion->prepare("SELECT * FROM departement WHERE statut=? ORDER BY `departement`.`id` DESC");
+$getData->execute([$statut]);

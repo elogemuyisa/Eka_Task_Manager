@@ -1,5 +1,13 @@
- Tache Eka_Task_Manager
-========================
+ Tache Eka_Task_Manager 1
+==========================
+
+1. Glad : Agent, Post-production.
+2. Eloge : Partenaire, terrain.
+3. Laur : Département.
+
+
+ Tache Eka_Task_Manager 2
+==========================
 
 1. Glad : Agent, Post-production.
 2. Eloge : Partenaire, terrain.

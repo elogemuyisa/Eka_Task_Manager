@@ -13,16 +13,16 @@ if (isset($_POST['valider']) && !empty($_GET['idTerrain'])) {
     $livraison=0;
     $etat=0;
     # Verification des doublos
-    $getProDiplicant = $connexion->prepare("SELECT * FROM `post_production` WHERE Typeproduction=? AND participation=? AND terrain=? AND statut=?");
-    $getProDiplicant->execute([$type,$agent,$idTerrain, $statut]);
+    $getProDiplicant = $connexion->prepare("SELECT * FROM `post_production` WHERE Typeproduction=? AND participation=? AND statut=?");
+    $getProDiplicant->execute([$type,$agent, $statut]);
     $tab = $getProDiplicant->fetch();
     if ($tab > 0) {
         $_SESSION['msg'] = "Une production semblabe est deja enregistrer veillez virifié svp !";
         header("location:../../views/post-Production.php?idTerrain=$idTerrain");
     } else {
         # Insertion data from database
-        $req = $connexion->prepare("INSERT INTO `post_production`(`Typeproduction`, `participation`, `terrain`, `disk`, `emplacement`, `etat`, `livraison`, `statut`) VALUES (?,?,?,?,?,?,?,?)");
-        $resultat = $req->execute([$type, $agent, $idTerrain, $disk, $emplacement, $etat, $livraison, $statut]);
+        $req = $connexion->prepare("INSERT INTO `post_production`(`Typeproduction`, `participation`, `disk`, `emplacement`, `etat`, `livraison`, `statut`) VALUES (?,?,?,?,?,?,?)");
+        $resultat = $req->execute([$type, $agent, $disk, $emplacement, $etat, $livraison, $statut]);
         if ($resultat == true) {
             $_SESSION['msg'] = "Enregistrement reussi !";
             header("location:../../views/post-Production.php?idTerrain=$idTerrain");

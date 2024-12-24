@@ -19,5 +19,5 @@ $getDepartement = $connexion->prepare("SELECT * FROM `departement` WHERE departe
 $getDepartement->execute([$statut]);
 
 # Selection Des données des agents
-$getData = $connexion->prepare("SELECT `agents`.*, departement.denomination FROM `agents`, `departement` WHERE agents.fonction=departement.id AND agents.statut=?;");
+$getData = $connexion->prepare("SELECT `agents`.*, departement.denomination FROM `agents`, `departement` WHERE agents.fonction=departement.id AND agents.statut=? ORDER BY `agents`.`id` DESC;");
 $getData->execute([$statut]);
