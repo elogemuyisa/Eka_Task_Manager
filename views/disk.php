@@ -62,7 +62,7 @@ require_once('../models/select/select-Disk.php');
                     <a href="disk.php?NewDisk">
                         <h6 class="bi bi-plus btn btn-dark btn-sm">Disk</h6>
                     </a>
-                    <h4 class="text-center">Listes des Disaues</h4>
+                    <h4 class="text-center">Listes des Disques de stockages</h4>
                     <table class="table table-borderless datatable ">
                         <thead>
                             <tr>
