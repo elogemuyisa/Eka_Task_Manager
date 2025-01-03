@@ -4,9 +4,9 @@
     <div class="d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
             <!-- <img src="assets/img/logo.png" alt=""> -->
-            <span class="d-none d-lg-block">Eka_Consulting</span>
+            <span class="d-none d-lg-block text-dark">Eka_Consulting</span>
         </a>
-        <i class="bi bi-list toggle-sidebar-btn"></i>
+        <i class="bi bi-list toggle-sidebar-btn text-dark"></i>
     </div><!-- End Logo -->
 
 
@@ -66,6 +66,12 @@
             <a class="nav-link bg-transparent text-dark " href="index.php">
                 <i class="bi bi-grid text-dark"></i>
                 <span>Accueil</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+        <li class="nav-item">
+            <a class="nav-link bg-transparent text-dark " href="materiels-Details.php">
+                <i class="bi bi-house-fill text-dark"></i>
+                <span>Materiels</span>
             </a>
         </li><!-- End Dashboard Nav -->
         <li class="nav-item">

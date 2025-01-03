@@ -59,7 +59,7 @@ require_once('../models/select/select-departement.php');
                                     <input type="submit" name="valider" class="btn btn-dark w-100" value="Modifier">
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
-                                    <a href="client.php" class="btn btn-danger w-100">Annuler</a>
+                                    <a href="departement.php" class="btn btn-danger w-100">Annuler</a>
                                 </div>
                             <?php
                             } else {

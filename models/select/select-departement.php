@@ -1,7 +1,7 @@
 <?php
 if (isset($_GET["idModif"])) {
     $id = $_GET["idModif"];
-    $getdepart = $connexion->prepare("SELECT * FROM departement where id=?");
+    $getdepart = $connexion->prepare("SELECT * FROM departement WHERE id=?");
     $getdepart->execute([$id]);
     $AfichDepartement = $getdepart->fetch();
     $title = "Modifier departement " . $AfichDepartement['nom_Departement'];
