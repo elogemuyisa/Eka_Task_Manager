@@ -8,18 +8,19 @@ if (isset($_GET["idTerrain"])) {
     $terMod = $getModifTer->fetch();
     $partenaire = $terMod["Denomination"];
     $idPart=$terMod["partenaire"];
-    $title = "Modifier un terrain de";
+    $title = "Modifier le terrain de";
     $btn = "Modifier";
-    $action = "";
+    $action = "../models/updat/update-terrain.php?idTerrain=" . $id;
 } else {
     $title = "Enregister un nouveau terrain";
     $btn = "Enregistrer";
     $action = "../models/add/add-Terrain-post.php";
 }
+# Selection des Terrains
 $statut = 0;
 $req = $connexion->prepare("SELECT terrain.*, partenaire.Denomination FROM terrain, partenaire WHERE terrain.partenaire=partenaire.id AND terrain.statut=?");
 $req->execute([$statut]);
 
-# Selection des partenaires
+# Selection des partenaires dans le Cmb
 $getPartenaire = $connexion->prepare("SELECT * FROM `partenaire` ");
 $getPartenaire->execute();

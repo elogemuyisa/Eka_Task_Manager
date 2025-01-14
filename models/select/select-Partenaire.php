@@ -1,9 +1,15 @@
 <?php
-if(isset($_GET["idPart"])){
+if(isset($_GET["idPartenaire"])){
     # Script de modification
-    $title="Modifier identité";
+    $id = $_GET["idPartenaire"];    
+    $getPartn = $connexion->prepare("SELECT * FROM `partenaire` WHERE id=?");
+    $getPartn->execute([$id]);
+    $ShowPartn = $getPartn->fetch();
+    $Denomination=$ShowPartn['Denomination']; 
+    $title="Modifier les informations de ".$Denomination;
     $btn="Modifier";
-    $action="";
+    $action="../models/updat/update-Partenaire.php?idPartenaire=" . $id;
+
 }else{
     # Script d'enregistrement
     $title="Enregister un nouveau Partenaire";
