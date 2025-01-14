@@ -68,25 +68,28 @@ require_once('../models/select/select-Partenaire.php');
                                 <h4 class="text-center"><?= $title ?></h4>
                                 <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                     <label for="">Denomination <span class="text-danger">*</span></label>
-                                    <input required type="text" name="nom" class="form-control" placeholder="Entrez le nom" <?php if (isset($_GET['idclient'])) { ?> value="<?= $element['nom'] ?>" <?php } ?>>
+                                    <input required type="text" name="nom" class="form-control" placeholder="Entrez le nom" <?php if (isset($_GET['idPartenaire'])) { ?> value="<?= $Denomination;?>" <?php } ?>>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                     <label for="">Adresse <span class="text-danger">*</span></label>
-                                    <input required type="text" name="adresse" class="form-control" placeholder="Entrez l'adresse" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['postnom'] ?>" <?php } ?>>
+                                    <input required type="text" name="adresse" class="form-control" placeholder="Entrez l'adresse" <?php if (isset($_GET['idPartenaire'])) { ?>value="<?= $ShowPartn['adresse'] ?>" <?php } ?>>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                     <label for="">Telephone <span class="text-danger">*</span></label>
-                                    <input required type="text" name="telephone" class="form-control" placeholder="Entrez le numero de téléphone" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['prenom'] ?>" <?php } ?>>
+                                    <input required type="text" name="telephone" class="form-control" placeholder="Entrez le numero de téléphone" <?php if (isset($_GET['idPartenaire'])) { ?>value="<?= $ShowPartn['telephone'] ?>" <?php } ?>>
                                 </div>
 
-                                <?php if (isset($_GET['idclient'])) {
+                                <?php if (isset($_GET['idPartenaire'])) {
                                 ?>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
-                                        <input type="submit" name="valider" class="btn btn-dark w-100" value="Modifier">
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
+                                            <input type="submit" name="valider" class="btn btn-dark w-100" value="Modifier">
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
+                                            <a href="client.php" class="btn btn-danger w-100">Annuler</a>
+                                        </div>
                                     </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
-                                        <a href="client.php" class="btn btn-danger w-100">Annuler</a>
-                                    </div>
+
                                 <?php
                                 } else {
                                 ?>
@@ -133,7 +136,7 @@ require_once('../models/select/select-Partenaire.php');
                                     <td><?= $res['adresse'] ?></td>
                                     <td><?= $res['telephone'] ?></td>
                                     <td>
-                                        <a href="client.php?idPartenaire=<?= $res['id'] ?>" class="btn btn-dark btn-sm">
+                                        <a href="partenaire.php?NewPartenaire&&idPartenaire=<?= $res['id'] ?>" class="btn btn-dark btn-sm">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
                                         <a href="partenaire.php?idSupPart=<?= $res['id'] ?>" class="btn btn-danger btn-sm">
