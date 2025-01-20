@@ -83,6 +83,11 @@
                         <i class="bi bi-circle"></i><span>Sortie Caisses</span>
                     </a>
                 </li>
+                <li>
+                    <a href="cloture.php">
+                        <i class="bi bi-circle"></i><span>Clotures</span>
+                    </a>
+                </li>
 
             </ul>
         </li><!-- End Components Nav -->
