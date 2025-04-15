@@ -39,27 +39,27 @@ require_once('../models/select/select-departement.php');
 
             if (isset($_GET["NewDepartement"])) {
             ?>
-                <!-- Le form qui enregistrer les données  -->
+                <!-- Le form qui enregistre les données  -->
                 <div class="col-xl-12 ">
                     <form action="<?= $action ?>" method="POST" class="shadow p-3">
                         <div class="row">
                             <h4 class="text-center"><?= $title ?></h4>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Description <span class="text-danger">*</span></label>
-                                <input required type="text" name="" class="form-control" placeholder="Entrez la description " >
+                                <input required type="text" name="nom_departement" <?php if (isset($_GET['idModif'])) { ?>value="<?= $AfichDepartement['nom_Departement'] ?>" <?php } ?>class="form-control" placeholder="Entrez le nom du departement ">
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Dénomination <span class="text-danger">*</span></label>
-                                <input required type="text" name="" class="form-control" placeholder="EX: Beni " >
-                            </div>                            
+                                <input required type="text" name="denomination" <?php if (isset($_GET['idModif'])) { ?>value="<?= $AfichDepartement['denomination'] ?>" <?php } ?> class="form-control" placeholder="Entrer le une denomination ">
+                            </div>
 
-                            <?php if (isset($_GET['idclient'])) {
+                            <?php if (isset($_GET['idModif'])) {
                             ?>
                                 <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
                                     <input type="submit" name="valider" class="btn btn-dark w-100" value="Modifier">
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
-                                    <a href="client.php" class="btn btn-danger w-100">Annuler</a>
+                                    <a href="departement.php" class="btn btn-danger w-100">Annuler</a>
                                 </div>
                             <?php
                             } else {
@@ -76,11 +76,13 @@ require_once('../models/select/select-departement.php');
                 </div>
             <?php
             } else {
+
             ?>
                 <a href="departement.php?NewDepartement" class="btn btn-dark w-100">Nouveau Département</a>
             <?php
             }
             ?>
+
 
             <!-- La table qui affiche les données  -->
             <div class="col-xl-12 table-responsive px-3 card mt-4 px-4 pt-3">
@@ -89,25 +91,35 @@ require_once('../models/select/select-departement.php');
                     <thead>
                         <tr>
                             <th>N°</th>
-                            <th>Description</th> 
-                            <th>Pseudonime</th>                           
+                            <th>Description</th>
+                            <th>Pseudonyme</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Exemple</td>    
-                            <td>Exemple</td>                          
-                            <td>
-                                <a href="client.php?idclient=" class="btn btn-dark btn-sm">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                                <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/deleteClient.php?idclient=" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash3-fill"></i>
-                                </a>
-                            </td>
-                        </tr>
+                        <?php
+                        $num = 0;
+                        while ($departement = $getData->fetch()) {
+                            $num++;
+                        ?>
+                            <tr>
+                                <!--<th scope="row">1</th> -->
+                                <td><?php echo $num ?></td>
+                                <td><?php echo $departement["nom_Departement"] ?></td>
+                                <td><?php echo $departement["denomination"] ?></td>
+                                <td>
+                                    <a href="departement.php?NewDepartement&idModif=<?php echo $departement[0] ?>" class="btn btn-dark btn-sm">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/delete-Departement.php?idSupDepar=<?php echo $departement[0] ?>" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
