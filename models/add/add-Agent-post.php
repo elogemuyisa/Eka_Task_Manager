@@ -3,7 +3,7 @@
 include('../../connexion/connexion.php');
 require_once('../../fonctions/fonctions.php');
 // creation de l'evenement sur le bouton valider
-if (isset($_POST['valider'])) {
+if (isset($_POST['valider'])) { 
   $nom = htmlspecialchars($_POST['nom']);
   $postnom = htmlspecialchars($_POST['postnom']);
   $prenom = htmlspecialchars($_POST['prenom']);
@@ -13,6 +13,7 @@ if (isset($_POST['valider'])) {
   $telephone = htmlspecialchars($_POST['telephone']);
   $Fonction = htmlspecialchars($_POST['fonction']);
   $pwd = htmlspecialchars($_POST['pwd']);
+  $mail = htmlspecialchars($_POST['mail']);
   $statut = 0;
   $fichier_tmp = $_FILES['picture']['tmp_name'];
   $nom_original = $_FILES['picture']['name'];
@@ -33,8 +34,8 @@ if (isset($_POST['valider'])) {
 
   if (is_numeric($telephone)) {
     #verifier si l'utilisateur existe ou pas dans la bd
-    $getUserDeplicant = $connexion->prepare("SELECT * FROM `agents` WHERE telephone=? AND statut=?");
-    $getUserDeplicant->execute([$telephone, $statut]);
+    $getUserDeplicant = $connexion->prepare("SELECT * FROM `agents` WHERE telephone=? AND mail=? AND statut=?");
+    $getUserDeplicant->execute([$telephone,$mail, $statut]);
     $tab = $getUserDeplicant->fetch();
     if ($tab > 0) {
       $_SESSION['msg'] = "Cet Agent existe deja dans a BD!";
@@ -43,8 +44,8 @@ if (isset($_POST['valider'])) {
       # verify pwd vadity
       if ($pwd != "") {
         # Insertion data from database
-        $req = $connexion->prepare("INSERT INTO `agents`(`nom`, `postnom`, `prenom`, `genre`, `telephone`, `adresse`, `fonction`, `telephoneReferant`, `pwd`, `profil`, `statut`) VALUES  (?,?,?,?,?,?,?,?,?,?,?)");
-        $resultat = $req->execute([$nom, $postnom, $prenom, $genre, $telephone, $adresse, $Fonction, $telephoneParent,  $pwd, $newimage, $statut]);
+        $req = $connexion->prepare("INSERT INTO `agents`(`nom`, `postnom`, `prenom`, `genre`, `telephone`, `adresse`, `fonction`, `telephoneReferant`, `pwd`,`mail`, `profil`, `statut`) VALUES  (?,?,?,?,?,?,?,?,?,?,?,?)");
+        $resultat = $req->execute([$nom, $postnom, $prenom, $genre, $telephone, $adresse, $Fonction, $telephoneParent,  $pwd,$mail, $newimage, $statut]);
         if ($resultat == true) {
           $_SESSION['msg'] = "Enregistrement reussi !";
           header("location:../../views/agent.php");

@@ -20,6 +20,18 @@ if (isset($_GET['dollar'])) {
     $getEntreeFranc = $connexion->prepare("SELECT * FROM `mouvementcaisse` WHERE mouvementcaisse.type=? AND mouvementcaisse.devise=? AND mouvementcaisse.statut=?;");
     $getEntreeFranc->execute([$type, $devise, $statut]);
 }
+if(isset($_GET['Dollard']) && !empty($_GET['idEntree'])){
+    $idModDolar=$_GET['idEntree'];
+    $title = "Modification Entrée en Dollars";
+    $btn = "Modifier";
+    $action = "../models/add/add-EntreeDollar-post.php";
+    # Selection des entrées en dollards
+    $type = "Entree";
+    $devise = "Dollard";
+    $statut = 0;
+    $getEntreeDolar = $connexion->prepare("SELECT * FROM `mouvementcaisse` WHERE mouvementcaisse.type=? AND mouvementcaisse.devise=? AND mouvementcaisse.statut=? AND mouvementcaisse.id=? ;");
+    $getEntreeDolar->execute([$type, $devise, $statut,$idModDolar]);
+}
 
 # Selection des tous les mouvement de caisses 
 $statut = 0;

@@ -35,6 +35,7 @@ if (isset($_GET["idProd"]) && !empty($_GET["idTerrain"])) {
 }
 # Selection des departement de la DB
 $statut = 0;
+$Etat=1;
 $getDisk = $connexion->prepare("SELECT * FROM `disk` WHERE disk.statut=?;");
 $getDisk->execute([$statut]);
 
@@ -43,5 +44,5 @@ $getAgent = $connexion->prepare("SELECT `participation`.*, agents.nom,agents.pos
 $getAgent->execute([$idTerrain, $statut]);
 
 # Selection des terrains
-$getTerrain = $connexion->prepare("SELECT `terrain`.*, partenaire.Denomination FROM `terrain`,`partenaire` WHERE terrain.partenaire=partenaire.id AND terrain.statut=? ORDER BY `terrain`.`id` DESC;");
-$getTerrain->execute([$statut]);
+$getTerrain = $connexion->prepare("SELECT `terrain`.*, partenaire.Denomination FROM `terrain`,`partenaire` WHERE terrain.partenaire=partenaire.id AND terrain.statut=? AND terrain.Etat=? ORDER BY `terrain`.`id` DESC;");
+$getTerrain->execute([$statut, $Etat]);

@@ -63,7 +63,7 @@ require_once("../models/select/select-Entree.php");
                 #Cette ligne permet de vider la valeur qui se trouve dans la session message
                 unset($_SESSION['msg']);
 
-                if (isset($_GET["dollar"])) {
+                if (isset($_GET["dollar"]) || isset($_GET['Dollard']) || !empty($_GET['idEntree'])) {
                 ?>
                     <!-- Le form qui enregistrer les entree en dollard  -->
                     <div class="col-xl-12 ">
@@ -261,6 +261,8 @@ require_once("../models/select/select-Entree.php");
                                 <?php $num = 0;
                                 while ($EntreeDol = $getEntree->fetch()) {
                                     $num = $num + 1;
+                                    $libelle=$EntreeDol["libelle"];
+                                    $report="Réport à nouveau";
                                     $getDevise = "";
                                     $getDevise = $EntreeDol["devise"];
                                     if ($getDevise == "Dollard") {
@@ -273,15 +275,27 @@ require_once("../models/select/select-Entree.php");
                                         <th scope="row"><?= $num ?></th>
                                         <td><?= $EntreeDol["date"] ?></td>
                                         <td><?= $EntreeDol["libelle"] ?></td>
-                                        <td><?= $EntreeDol["montant"] . "" . $EntreeDevise ?></td>
-                                        <td>
-                                            <a href="entree.php?dollar&idEntree=<?= $EntreeDol["id"] ?>" class="btn btn-dark btn-sm">
+                                        <td><?= $EntreeDol["montant"] . " " . $EntreeDevise ?></td>
+                                        <?php
+                                            if($libelle==$report){
+                                                ?> 
+                                                    <td>
+                                                        <i class="text-mute">Null</i>
+                                                    </td>
+                                                <?php
+                                            }else{
+                                                ?> 
+                                                    <td>
+                                            <a href="entree.php?<?= $EntreeDol["devise"]?>&idEntree=<?= $EntreeDol["id"] ?>" class="btn btn-dark btn-sm">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                             <a href="entree.php?SupTer=<?= $EntreeDol["id"] ?>" class="btn btn-danger btn-sm">
                                                 <i class="bi bi-trash3-fill"></i>
                                             </a>
                                         </td>
+                                                <?php 
+                                            }
+                                        ?>
                                     </tr>
                             </tbody>
                         <?php

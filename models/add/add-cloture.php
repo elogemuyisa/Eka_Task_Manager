@@ -1,4 +1,4 @@
-<?php
+ <?php
 # Engistrement de la cloture
 
 include("../../connexion/connexion.php");
