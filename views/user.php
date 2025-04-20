@@ -40,7 +40,7 @@ require_once('../models/select/select-User.php');
             ?>
                 <!-- Le form qui enregistrer les données  -->
                 <div class="col-xl-12 ">
-                    <form action="<?= $action ?>" method="POST" class="shadow p-3">
+                    <form action="<?= $action ?>" method="POST" class="shadow p-3" enctype="multipart/form-data">
                         <div class="row">
                             <h4 class="text-center"><?= $title ?></h4>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
@@ -54,33 +54,37 @@ require_once('../models/select/select-User.php');
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Prenom <span class="text-danger">*</span></label>
                                 <input required autocomplete="off" type="text" name="prenom" class="form-control" placeholder="Entrez le prenom" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['prenom'] ?>" <?php } ?>>
-                            </div>                            
-                            <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
-                                <label for="">Adresse <span class="text-danger">*</span></label>
-                                <input required autocomplete="off" type="text" name="adress" class="form-control" placeholder="Entrez l'adresse" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['adresse'] ?>" <?php } ?>>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                 <label for="">Telephone <span class="text-danger">*</span></label>
                                 <input required autocomplete="off" type="text" name="telephone" class="form-control" placeholder="Entrez le N° Tel" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['telephone'] ?>" <?php } ?>>
                             </div>
-                           
                             <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
-                                <label for="">Département <span class="text-danger">*</span></label>
+                                <label for="">Fonction <span class="text-danger">*</span></label>
                                 <select required id="" name="fonction" class="form-control select2">
-                                    <option value="" desabled>Choisir un département</option>
-                                    <option value="">Exemple</option>
-                                    <option value="">Exemple</option>
-                                </select>
-                            </div>                            
-                            <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
-                                <label for="">Mot de passe <span class="text-danger">*</span></label>
-                                <input required autocomplete="off" type="password" name="telephone" class="form-control" placeholder="Entrez le N° Tel" <?php if (isset($_GET['idclient'])) { ?>value="<?= $element['telephone'] ?>" <?php } ?>>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-4  col-sm-6 p-3">
-                                <label for="">Photo <span class="text-danger">*</span></label>
-                                <input autocomplete="off" value="" name="photo" class="img-fluid" type="file" class="form-control" placeholder="Aucun fichier">
-                            </div>
+                                    <?php
+                                    if (isset($_GET['idUser'])) {
+                                    ?>
+                                        <?php if ($tab['fonction'] == 'ceo') { ?>
+                                            <option value="ceo" Selected>ceo</option>
+                                            <option value="Admin">Admin</option>
 
+                                        <?php } else {
+                                        ?>
+                                            <option value="ceo">ceo</option>
+                                            <option value="Admin" Selected>Admin</option>
+
+                                        <?php }
+                                    } else {
+                                        ?>
+                                        <option value="" desabled>Choisir une fonction</option>
+                                        <option value="ceo">ceo</option>
+                                        <option value="Admin">Admin</option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                             <?php if (isset($_GET['idUser'])) {
                             ?>
                                 <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
@@ -92,6 +96,14 @@ require_once('../models/select/select-User.php');
                             <?php
                             } else {
                             ?>
+                                <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
+                                    <label for="">Mot de passe <span class="text-danger">*</span></label>
+                                    <input required autocomplete="off" type="password" name="motdepasse" class="form-control" <?php if (isset($_GET['iduser'])) { ?>value="<?= $element['telephone'] ?>" <?php } ?>>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4  col-sm-6 p-3">
+                                    <label for="">Photo de profil<span class="text-danger">*</span></label>
+                                    <input autocomplete="off" value="" name="picture" class="img-fluid" type="file" class="form-control" placeholder="Aucun fichier">
+                                </div>
                                 <div class="col-xl-12 col-lg-12 col-md-12 mt-10 col-sm-12 p-3 aling-center">
                                     <input type="submit" name="valider" class="btn btn-dark w-100" value="<?= $btn ?>">
                                 </div>
@@ -118,30 +130,39 @@ require_once('../models/select/select-User.php');
                         <tr>
                             <th>N°</th>
                             <th>Noms</th>
-                            <th>Adresse</th>
+                            <th>Fonction</th>
                             <th>Telephone</th>
                             <th>Profil</th>
-                            <th>Mot de passe</th>                            
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
-                            <td>Ex: +243 ...</td>
-                            <td>Ex: +243 ...</td>
-                            <td>
-                                <a href="client.php?idclient=" class="btn btn-dark btn-sm">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                                <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/deleteClient.php?idclient=" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash3-fill"></i>
-                                </a>
-                            </td>
-                        </tr>
+                        <?php
+                        $n = 0;
+                        while ($user = $getData->fetch()) {
+                            $n++;
+                        ?>
+                            <tr>
+                                <th scope="row"><?= $n ?></th>
+                                <td><?= $user["nom"] . " " . $user["postnom"] . " " . $user["prenom"]  ?></td>
+                                <td><?= $user["telephone"] ?></td>
+                                <td><?= $user["telephone"] ?></td>
+                                <td><img src="../assets/img/profiles/<?= $user["profil"] ?>" alt="" class="rounded-circle mt-2" width="65px" height="60px"></td>
+                                <td>
+                                    <a href="participation.php?idTerr=<?= $user["id"] ?>" class="btn btn-dark btn-sm">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="terrain.php?NewTerrain&idTerrain=<?= $user["id"] ?>" class="btn btn-dark btn-sm">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="terrain.php?SupTer=<?= $user["id"] ?>" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>

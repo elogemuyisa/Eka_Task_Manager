@@ -150,7 +150,11 @@ require_once('../models/select/select-Agent.php');
                                 ?>
                                     <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                         <label for="">Mot de passe <span class="text-danger">*</span></label>
-                                        <input required autocomplete="off" type="text" name="pwd" class="form-control" placeholder="Entrez le N° Tel" <?php if (isset($_GET['idAgent'])) { ?>value="<?= $element['telephone'] ?>" <?php } ?>>
+                                        <input required autocomplete="off" type="password" name="pwd" class="form-control" placeholder="Ex:..." <?php if (isset($_GET['idAgent'])) { ?>value="<?= $element['telephone'] ?>" <?php } ?>>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
+                                        <label for="">Adresse mail <span class="text-danger">*</span></label>
+                                        <input required autocomplete="off" type="email" name="mail" class="form-control" placeholder="EX: Exemple@gmail.com" <?php if (isset($_GET['idAgent'])) { ?>value="<?= $element['telephone'] ?>" <?php } ?>>
                                     </div>
                                     <div class="col-xl-4 col-lg-4 col-md-4  col-sm-6 p-3">
                                         <label for="">Photo de profil<span class="text-danger">*</span></label>
