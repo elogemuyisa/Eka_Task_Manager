@@ -56,7 +56,7 @@ require_once('../models/select/select-cloture.php');
                             <div class="col-xl-12 px-3 card mt-4 px-4 pt-3">
                                 <h3 class="bi bi-shield-exclamation text-danger text-center"> Zone Dangereuse</h3> <br>
                                 <p class="text-center">
-                                    Voule-Vous vraiment les récents mouvemennts de caisse ?? <br>
+                                    Voule-Vous vraiment cloturer les récents mouvemennts de caisse ?? <br>
                                     Cette action est irreverssible, Assurez-vous que c'est l'action que vous souhaiter
                                     réaliser ! Elle permet de cloturer tout les recents mouvement de caisse, les entrées comme les sorties.
                                 </p>
@@ -65,7 +65,7 @@ require_once('../models/select/select-cloture.php');
                                         <a href="cloture.php" class="btn btn-dark  w-100"> Annler</a>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
-                                        <a href="../models/add/add-cloture.php?valider&sldD=<?= $soldeDol ?>&sldF=<?= $soldeFranc ?>" class="btn btn-danger bi bi-trash w-100"> Cloturé</a>
+                                        <a href="../models/add/add-cloture.php?valider&sldD=<?= $soldeDol ?>&sldF=<?= $soldeFranc ?>" class="btn btn-danger bi bi-check w-100"> Cloturé</a>
                                     </div>
                                 </div>
                             </div>

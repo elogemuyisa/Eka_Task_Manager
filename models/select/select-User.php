@@ -6,5 +6,8 @@ if(isset($_GET["idUser"])){
 }else{
     $title="Enregister un nouvel Administrateur";
     $btn="Enregistrer";
-    $action="";
+    $action="../models/add/add-user-post.php";
 }
+$statut = 0;
+$getData = $connexion->prepare("SELECT * FROM `users` WHERE users.statut=?;");
+$getData->execute([$statut]);
