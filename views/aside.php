@@ -1,5 +1,5 @@
 <?php
-include '../connexion/connexion.php';
+include_once '../connexion/connexion.php';
 if (!isset($_SESSION['iduser']) || empty($_SESSION['iduser'])) {
     header("location:ops.php");
 }

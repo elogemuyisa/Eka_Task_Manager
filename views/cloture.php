@@ -58,11 +58,12 @@ require_once('../models/select/select-cloture.php');
                                 <p class="text-center">
                                     Voule-Vous vraiment cloturer les récents mouvemennts de caisse ?? <br>
                                     Cette action est irreverssible, Assurez-vous que c'est l'action que vous souhaiter
-                                    réaliser ! Elle permet de cloturer tout les recents mouvement de caisse, les entrées comme les sorties.
+                                    réaliser ! Elle permet de cloturer tout les recents mouvements de caisse non encore cloturé, 
+                                    les entrées comme les sorties.
                                 </p>
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
-                                        <a href="cloture.php" class="btn btn-dark  w-100"> Annler</a>
+                                        <a href="cloture.php" class="btn btn-dark  w-100"> Annuler</a>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                         <a href="../models/add/add-cloture.php?valider&sldD=<?= $soldeDol ?>&sldF=<?= $soldeFranc ?>" class="btn btn-danger bi bi-check w-100"> Cloturé</a>
