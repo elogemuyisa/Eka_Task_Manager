@@ -177,22 +177,31 @@ require_once('../models/select/select-Agent.php');
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+                        $num = 0;
+                        while ($agent = $getData->fetch()) {
+                            $num++;
+                        ?>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
-                            <td>Exemple</td>
-                            <td>Ex: +243 ...</td>
-                            <td>Ex: +243 ...</td>
+                            <!-- <th scope="row">1</th> -->
+                            <td><?php echo $num ?></td>
+                            <td><?= $agent["nom"] . " " . $agent["postnom"] . " " . $agent["prenom"] ?></td>
+                            <td><?php echo $agent["genre"] ?></td>
+                            <td><?php echo $agent["adresse"] ?></td>
+                            <td><?php echo $agent["telephone"] ?></td>
+                            <td><?php echo $agent["denomination"] ?></td>
                             <td>
-                                <a href="client.php?idclient=" class="btn btn-dark btn-sm">
+                                <a href="agent.php?NewAgent&idAgent=<?php echo $agent[0] ?>" class="btn btn-dark btn-sm">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
-                                <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/deleteClient.php?idclient=" class="btn btn-danger btn-sm">
+                                <a onclick=" return confirm('Voulez-vous vraiment supprimer ?')" href="../models/delete/delete-Agent.php?idSupAgent=<?php echo $agent[0] ?>" class="btn btn-danger btn-sm">
                                     <i class="bi bi-trash3-fill"></i>
                                 </a>
                             </td>
                         </tr>
+                        <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>

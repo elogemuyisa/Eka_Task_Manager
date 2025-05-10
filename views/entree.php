@@ -30,22 +30,22 @@ require_once("../models/select/select-Entree.php");
         </div>
         <?php
         # Confirmation de la suppression
-        if (isset($_GET['SupTer'])) {
-            $id = $_GET["SupTer"];
+        if (isset($_GET['SupEntr'])) {
+            $id = $_GET["SupEntr"];
         ?>
             <div class="col-xl-12 px-3 card mt-4 px-4 pt-3">
                 <h3 class="bi bi-shield-exclamation text-danger text-center"> Zone Dangereuse</h3> <br>
                 <p class="text-center">
-                    Voule-Vous vraiment supprimer ce terrain ?? c'est dangereux ! <br>
+                    Voule-Vous vraiment supprimer cette opération ?? c'est dangereux ! <br>
                     Cette action est irreverssible, Assurez-vous que c'est l'action que vous souhaiter
-                    réaliser ! Elle permet de supprimer un Terain de la base de données et toutes les données liées à ce terrain .
+                    réaliser ! Elle permet de supprimer une opération d'entrée de la base de données et toutes les données liées à cettetransaction .
                 </p>
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
-                        <a href="terrain.php" class="btn btn-dark  w-100"> Annler</a>
+                        <a href="entree.php" class="btn btn-dark  w-100"> Annler</a>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
-                        <a href="../models/delete/delete-terrain.php?SupTer=<?= $id ?>" class="btn btn-danger bi bi-trash w-100"> Supprimer un partenaire</a>
+                        <a href="../models/delete/delete-entree.php?SupEntr=<?= $id ?>" class="btn btn-danger bi bi-trash w-100"> Supprimer cette trabsaction</a>
                     </div>
                 </div>
             </div>
@@ -72,21 +72,21 @@ require_once("../models/select/select-Entree.php");
                                 <h4 class="text-center"><?= $title ?></h4>
                                 <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                     <label for="">Libelle <span class="text-danger">*</span></label>
-                                    <input required autocomplete="off" type="text" name="libelle" class="form-control" placeholder="Entrez la déscription" <?php if (isset($_GET['idTerrain'])) { ?>value="<?= $terMod['description'] ?>" <?php } ?>>
+                                    <input required autocomplete="off" type="text" name="libelle" class="form-control" placeholder="Entrez la déscription" <?php if (isset($_GET['idEntree'])) { ?>value="<?= $AfichModif['libelle'] ?>" <?php } ?>>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6  col-sm-6 p-3">
                                     <label for="">Montant <span class="text-danger">*</span></label>
-                                    <input required autocomplete="off" type="text" name="montant" class="form-control" placeholder="EX: 5000" <?php if (isset($_GET['idTerrain'])) { ?>value="<?= $terMod['lieu'] ?>" <?php } ?>>
+                                    <input required autocomplete="off" type="text" name="montant" class="form-control" placeholder="EX: 5000" <?php if (isset($_GET['idEntree'])) { ?>value="<?= $AfichModif['montant'] ?>" <?php } ?>>
                                 </div>
 
-                                <?php if (isset($_GET['idTerrain'])) {
+                                <?php if (isset($_GET['idEntree'])) {
                                 ?>
                                     <div class="row">
                                         <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
                                             <input type="submit" name="valider" class="btn btn-dark w-100" value="Modifier">
                                         </div>
                                         <div class="col-xl-6 col-lg-6 col-md-6 mt-4 col-sm-6 p-3 ">
-                                            <a href="client.php" class="btn btn-danger w-100">Annuler</a>
+                                            <a href="entree.php" class="btn btn-danger w-100">Annuler</a>
                                         </div>
                                     </div>
                                 <?php
@@ -128,7 +128,7 @@ require_once("../models/select/select-Entree.php");
                                             <a href="entree.php?dollar&idEntree=<?= $EntreeDol["id"] ?>" class="btn btn-dark btn-sm">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
-                                            <a href="entree.php?SupTer=<?= $EntreeDol["id"] ?>" class="btn btn-danger btn-sm">
+                                            <a href="entree.php?SupEntr=<?= $EntreeDol["id"] ?>" class="btn btn-danger btn-sm">
                                                 <i class="bi bi-trash3-fill"></i>
                                             </a>
                                         </td>
@@ -289,7 +289,7 @@ require_once("../models/select/select-Entree.php");
                                             <a href="entree.php?<?= $EntreeDol["devise"]?>&idEntree=<?= $EntreeDol["id"] ?>" class="btn btn-dark btn-sm">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
-                                            <a href="entree.php?SupTer=<?= $EntreeDol["id"] ?>" class="btn btn-danger btn-sm">
+                                            <a href="entree.php?SupEntr=<?= $EntreeDol["id"] ?>" class="btn btn-danger btn-sm">
                                                 <i class="bi bi-trash3-fill"></i>
                                             </a>
                                         </td>

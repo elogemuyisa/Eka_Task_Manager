@@ -1,5 +1,5 @@
 <?php
-include '../connexion/connexion.php';
+include_once '../connexion/connexion.php';
 if (!isset($_SESSION['iduser']) || empty($_SESSION['iduser'])) {
     header("location:ops.php");
 }
@@ -207,7 +207,7 @@ if (!isset($_SESSION['iduser']) || empty($_SESSION['iduser'])) {
                 </a>
             </li><!-- End Dashboard Nav -->
             <li class="nav-item">
-                <a class="nav-link bg-transparent text-dark " href="post-Production.php">
+                <a class="nav-link bg-transparent text-dark " href="horaire.php">
                     <i class="bi bi-person-walking text-dark"></i>
                     <span>Horaire</span>
                 </a>
