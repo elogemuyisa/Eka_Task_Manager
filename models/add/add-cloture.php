@@ -17,10 +17,10 @@ if (isset($_GET["valider"]) && isset($_GET["sldD"]) && isset($_GET["sldF"])) {
     $setCloture = $connexion->prepare("UPDATE `mouvementcaisse` SET `cloture`=? WHERE mouvementcaisse.statut =? and mouvementcaisse.cloture=?");
     $test = $setCloture->execute(array($cloture, $statut, $Etatcloture));
     if ($test == true) {
-        # insertion report à nouveau dollars
+        # insertion du report à nouveau dollars
         $InsertDol = $connexion->prepare("INSERT INTO `mouvementcaisse`(`date`, `type`, `libelle`, `montant`, `devise`, `statut`) VALUES (NOW(),?,?,?,?,?)");
         $Chec = $InsertDol->execute([$type, $libelle, $soldeDol, $DeviseD, $statut]);
-        # Inserssion report à nouveau Franc
+        # Inserssion du report à nouveau Franc
         $req = $connexion->prepare("INSERT INTO `mouvementcaisse`(`date`, `type`, `libelle`, `montant`, `devise`, `statut`) VALUES (NOW(),?,?,?,?,?)");
         $resultat = $req->execute([$type, $libelle, $soldeFra, $DeviseF, $statut]);
         if ($resultat == true) {
